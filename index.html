@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/a5b0fddbd4.js" crossorigin="anonymous"></script>
+    <script src="index.js" defer></script>
+    <link rel="stylesheet" href="index.css">
+    <title>Document</title>
+</head>
+<body>
+<!---
+        <i class="fa-solid fa-volume-mute"></i> //Volume Mute
+    <i class="fa-solid fa-pause"></i>// Pause song
+    <i class="fa-solid fa-repeat"></i>// Repeat song
+    <i class="fa-solid fa-list"></i>// list song
+    <i class="fa-solid fa-shuffle"></i>// Shuffle song--->
+    
+    
+    
+    
+    <div class="container">
+        <audio id="song">
+        <source type="audio/mpeg" id="source">
+    </audio>
+    
+
+    <div class="image">
+            <img src="./bg_images/kygobg.jpg" alt="" id="big_image">
+            <div class="volume_sec">
+                <i class="fa-solid fa-volume-high" id="volume_high">
+                </i>
+                <input type="range"  id="volume" value="0.5" min="0" max="1" step="0.1">
+            </div>
+    </div>
+    
+    <div class="wrapper">
+        <div class="loader">
+            <progress id="progress" value="0" max="1"></progress>
+        </div>
+        <div class="section_controls">
+            
+            <div class="left_side">
+                <div class="small_image">
+                    <img src="./small_images/kygosm.jpg" width="36" height="36" alt="" id="small_image">
+                </div>
+                <div class="song_det">
+                    <h4 id="song_title">forever yours</h4>
+                    <h5 id="artist">kygo</h5>
+                    </div>
+            </div>
+    
+            <div class="centre_side">
+                <i class="fa-solid fa-backward" id="prev"></i>
+                <i class="fa-solid fa-pause" id="pause"></i>
+                <i class="fa-solid fa-forward" id="next"></i>
+                </div>
+                
+                <div class="right_side">
+                <span id="song_currentTime">0:00</span>
+                <span id="song_duration"></span>
+                </div>
+                
+                
+                </div>
+                </div>
+                
+
+
+
+
+
+    
+</div>
+
+
+  
+
+
+
+</body>
+</html>
