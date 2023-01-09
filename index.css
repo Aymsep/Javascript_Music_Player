@@ -7,7 +7,6 @@
 }
 
 body{
-    background-color: rgba(0, 0, 0, 0.959);
     backdrop-filter: blur(10px);
     padding: 50px;
     width: 100vw;
