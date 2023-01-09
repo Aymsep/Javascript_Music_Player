@@ -59,15 +59,14 @@ const small_image = document.getElementById('small_image')
 const song_title = document.getElementById('song_title')
 const artist = document.getElementById('artist')
 const circle = document.querySelector('.circle')
+const aud = document.getElementsByTagName('audio')[0]
 let  isDragging = false
 let current_index = 0
 
 
 
-
 function display_song(index){
     const item = data[index]
-    song_source.setAttribute('src', item.song)
     bg_image.src = item.bg_image
     small_image.src = item.small_image
     song_title.innerHTML = item.title
@@ -75,6 +74,18 @@ function display_song(index){
     song.autoplay = true
     song.value = volume.value
     progress.value = 0
+    let audio = new Audio(item.song)
+    audio.onloadeddata = () =>{
+      let dur = (song.duration / 60).toFixed(2)
+      dur = dur.replace(".",":")
+      duration.innerHTML = dur
+      const sourc = document.createElement('source')
+      sourc.setAttribute('type', 'audio/ogg')
+      sourc.setAttribute('src', item.song)
+      aud.appendChild(sourc)
+        
+    }
+
     song.load()
     
 }
@@ -83,11 +94,6 @@ song.ontimeupdate = ()=>{
     const sec = Math.floor(song.currentTime % 60)
     current.innerHTML = min + ':' + (sec < 10 ? '0' : '') + sec; 
     progress.value = song.currentTime / song.duration
-}
-  song.onloadedmetadata = () =>{
-    let dur = (song.duration / 60).toFixed(2)
-    dur = dur.replace(".",":")
-    duration.innerHTML = dur
 }
 display_song(0)
 
