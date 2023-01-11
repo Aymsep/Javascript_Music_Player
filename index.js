@@ -1,3 +1,4 @@
+    
 const data = [
     {
         id:1,
@@ -49,7 +50,7 @@ const current = document.querySelector('#song_currentTime')
 const duration = document.querySelector('#song_duration')
 const progress = document.querySelector('#progress')
 const volume = document.querySelector('#volume')
-const i  = document.querySelector('#pause')
+const i  = document.querySelector('#play')
 const i_volume  = document.querySelector('#volume_high')
 const next = document.getElementById('next')
 const prev = document.getElementById('prev')
@@ -72,7 +73,6 @@ function display_song(index){
     small_image.src = item.small_image
     song_title.innerHTML = item.title
     artist.innerHTML = item.singer
-    song.autoplay = true
     song.value = volume.value
     progress.value = 0
     song.load()
@@ -84,7 +84,7 @@ song.ontimeupdate = ()=>{
     current.innerHTML = min + ':' + (sec < 10 ? '0' : '') + sec; 
     progress.value = song.currentTime / song.duration
 }
-  song.onloadedmetadata = () =>{
+song.onloadedmetadata = () =>{
     let dur = (song.duration / 60).toFixed(2)
     dur = dur.replace(".",":")
     duration.innerHTML = dur
@@ -92,10 +92,15 @@ song.ontimeupdate = ()=>{
 display_song(0)
 
 
+
+
+
+
+
 let previous = true;
-pause.addEventListener('click', ()=>{
-    previous?(song.pause() && i.classList.remove('fa-pause')):(song.play() && i.classList.add('fa-pause'));
-    previous?i.classList.add('fa-play'):i.classList.remove('fa-play')
+play.addEventListener('click', ()=>{
+    previous?(song.play() && i.classList.remove('fa-play')):(song.pause() && i.classList.remove('fa-pause'));
+    previous?i.classList.add('fa-pause'):i.classList.add('fa-play')
     previous = !previous
 })
 
@@ -106,21 +111,27 @@ next.addEventListener('click', ()=>{
     if(current_index > data.length - 1){
         current_index = 0
     }
-    setTimeout(()=>{
         display_song(current_index)
+        song.play()
+        i.classList.remove('fa-play')
+        i.classList.add('fa-pause')
         
-    },500)
+   
+    
 })
 
 prev.addEventListener('click', ()=>{
-    setTimeout(()=>{
-        display_song(current_index)
-        
-    },500)
+ 
+    
+    
     current_index--;
     if(current_index < 0){
         current_index = data.length - 1
     }
+    display_song(current_index)
+    song.play()
+        i.classList.remove('fa-play')
+        i.classList.add('fa-pause')
 })
 
 
