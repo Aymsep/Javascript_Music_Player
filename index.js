@@ -1,10 +1,9 @@
-    
 const data = [
     {
         id:1,
         singer:'kygo',
         title:'forever yours',
-        song:'kygo.mp3',
+        song:'./music/kygo.mp3',
         small_image:'./small_images/kygosm.jpg',
         bg_image:'./bg_images/kygobg.jpg'
      },
@@ -12,7 +11,7 @@ const data = [
         id:2,
         singer:'jay sean',
         title:'down',
-        song:'jaysean.mp3',
+        song:'./music/jaysean.mp3',
         small_image:'./small_images/jayseansm.jpg',
         bg_image:'./bg_images/jayseanbg.jpg'
     },
@@ -20,7 +19,7 @@ const data = [
         id:3,
         singer:'metallica',
         title:'nothing else matter',
-        song:'metallica.mp3',
+        song:'./music/metallica.mp3',
         small_image:'./small_images/metallicasm.jpg',
         bg_image:'./bg_images/metallicabg.jpg'
     },
@@ -28,7 +27,7 @@ const data = [
         id:4,
         singer:'micheal jackson',
         title:'billie jean',
-        song:'mj.mp3',
+        song:'./music/mj.mp3',
         small_image:'./small_images/mjsm.jpg',
         bg_image:'./bg_images/mjbg.jpg'
     },
@@ -50,7 +49,7 @@ const current = document.querySelector('#song_currentTime')
 const duration = document.querySelector('#song_duration')
 const progress = document.querySelector('#progress')
 const volume = document.querySelector('#volume')
-const i  = document.querySelector('#play')
+const i  = document.querySelector('#pause')
 const i_volume  = document.querySelector('#volume_high')
 const next = document.getElementById('next')
 const prev = document.getElementById('prev')
@@ -73,6 +72,7 @@ function display_song(index){
     small_image.src = item.small_image
     song_title.innerHTML = item.title
     artist.innerHTML = item.singer
+    song.autoplay = true
     song.value = volume.value
     progress.value = 0
     song.load()
@@ -84,7 +84,7 @@ song.ontimeupdate = ()=>{
     current.innerHTML = min + ':' + (sec < 10 ? '0' : '') + sec; 
     progress.value = song.currentTime / song.duration
 }
-song.onloadedmetadata = () =>{
+  song.onloadedmetadata = () =>{
     let dur = (song.duration / 60).toFixed(2)
     dur = dur.replace(".",":")
     duration.innerHTML = dur
@@ -92,15 +92,10 @@ song.onloadedmetadata = () =>{
 display_song(0)
 
 
-
-
-
-
-
 let previous = true;
-play.addEventListener('click', ()=>{
-    previous?(song.play() && i.classList.remove('fa-play')):(song.pause() && i.classList.remove('fa-pause'));
-    previous?i.classList.add('fa-pause'):i.classList.add('fa-play')
+pause.addEventListener('click', ()=>{
+    previous?(song.pause() && i.classList.remove('fa-pause')):(song.play() && i.classList.add('fa-pause'));
+    previous?i.classList.add('fa-play'):i.classList.remove('fa-play')
     previous = !previous
 })
 
@@ -111,27 +106,21 @@ next.addEventListener('click', ()=>{
     if(current_index > data.length - 1){
         current_index = 0
     }
+    setTimeout(()=>{
         display_song(current_index)
-        song.play()
-        i.classList.remove('fa-play')
-        i.classList.add('fa-pause')
         
-   
-    
+    },500)
 })
 
 prev.addEventListener('click', ()=>{
- 
-    
-    
+    setTimeout(()=>{
+        display_song(current_index)
+        
+    },500)
     current_index--;
     if(current_index < 0){
         current_index = data.length - 1
     }
-    display_song(current_index)
-    song.play()
-        i.classList.remove('fa-play')
-        i.classList.add('fa-pause')
 })
 
 
